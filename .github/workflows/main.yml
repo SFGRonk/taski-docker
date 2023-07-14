@@ -67,7 +67,7 @@ jobs:
         uses: docker/login-action@v2
         # При помощи with передаём в action параметры sfgronk и password
         with:
-          sfgronk: ${{ secrets.DOCKER_sfgronk }} 
+          sfgronk: ${{ secrets.DOCKER_USERNAME }} 
           password: ${{ secrets.DOCKER_PASSWORD }}
           # Хорошо ли держать логин и пароль прямо в коде workflow?
           # Нет, это нехорошо
@@ -121,7 +121,7 @@ jobs:
       - name: Login to Docker 
         uses: docker/login-action@v2
         with:
-          sfgronk: ${{ secrets.DOCKER_sfgronk }}
+          sfgronk: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to DockerHub
         uses: docker/build-push-action@v4
@@ -140,12 +140,11 @@ jobs:
       - name: Login to Docker 
         uses: docker/login-action@v2
         with:
-          sfgronk: ${{ secrets.DOCKER_sfgronk }}
+          sfgronk: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to DockerHub
         uses: docker/build-push-action@v4
         with:
           context: ./gateway/
           push: true
-          # Тут вместо sfgronk должен быть ваш логин на Docker Hub
           tags: sfgronk/taski_gateway:latest
